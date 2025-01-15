@@ -8,4 +8,7 @@ export class AppService {
   hello(): string {
     return 'Hello World!';
   }
+  gello(): string {
+    return 'gello World!';
+  }
 }
