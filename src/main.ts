@@ -5,10 +5,16 @@ import * as process from 'process';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // adding cors
+  const allowedOrigins =
+    process.env.NODE_ENV === 'production'
+      ? ['https://kfrontend-production.up.railway.app/']
+      : ['http://localhost:3000'];
+
   app.enableCors({
-    origin: 'http://localhost:3000', // Allow only localhost:3000
-    methods: 'GET, POST, PUT, DELETE', // Specify allowed methods
-    allowedHeaders: 'Content-Type, Accept', // Specify allowed headers
+    origin: allowedOrigins,
+    methods: 'GET, POST, PUT, DELETE',
+    allowedHeaders: 'Content-Type, Accept',
+    credentials: true,
   });
   await app.listen(process.env.PORT || 8000);
 }
